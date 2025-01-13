@@ -68,7 +68,6 @@ def create_wordcloud(selected_user, df):
     plt.show()
 
     return df_wc
-
 def most_common_words(selected_user, df):
     stop_words_path = os.path.join(os.getcwd(), 'stop_words.txt')
     try:
