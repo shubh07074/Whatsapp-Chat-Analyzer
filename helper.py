@@ -36,10 +36,21 @@ def create_wordcloud(selected_user, df):
 
     # Tokenize and clean the messages
     all_messages = temp['message'].str.cat(sep=" ").lower()
+
+    # If all messages are empty or invalid, return an error message
+    if not all_messages.strip():
+        print("No valid messages to process.")
+        return None
+
     words = re.findall(r'\w+', all_messages)  # Extract words from the text
 
     # Calculate word frequencies
     word_freq = Counter(words)
+
+    # If no words are found, print a message and return
+    if not word_freq:
+        print("No valid words to create word cloud.")
+        return None
 
     # Initialize WordCloud object with a valid font path (None for default font)
     wc = WordCloud(width=800, height=800, max_words=100, background_color='white')
