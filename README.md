@@ -1,34 +1,45 @@
-# Whatsapp-Chat-Analyzer
-This project analyzes user activity from messaging data to provide insights such as most active users, word cloud, emoji usage, daily, weekly, and monthly activity trends. It uses Python libraries like pandas, seaborn, wordcloud, and Streamlit for visualizations and interactive reporting.
 
-#WhatsApp Activity Analysis and Visualization
-This project aims to analyze and visualize WhatsApp chat data to gain insights into user activity, message trends, and engagement. Using data from WhatsApp chat exports, the system processes and generates multiple visualizations to help users understand their messaging behavior, including message counts, word clouds, emoji usage, and activity heatmaps.
+User Activity Analysis
+This project analyzes user activity from messaging data, providing insights into user engagement, activity patterns, most common words, emoji usage, and more. The project leverages Python libraries like Pandas, Seaborn, WordCloud, and Streamlit to create interactive visualizations.
 
-#Features:
-Message Statistics: Provides key statistics such as the total number of messages, word count, number of media messages, and links shared in a selected chat or for all users.
-Most Active Users: Identifies and displays the most active users in the chat, along with their message distribution as a percentage.
-Word Cloud: Generates a word cloud that visualizes the most frequently used words in the chat, excluding stop words and emojis.
-Emoji Analysis: Analyzes and displays the most commonly used emojis in the chat.
-Monthly and Daily Timeline: Provides timelines showing the frequency of messages over time, including daily and monthly activity trends.
-Weekly Activity Heatmap: A heatmap visualization that displays user activity patterns across the days of the week and hours of the day.
-Data Preprocessing:
-The project preprocesses WhatsApp chat data to remove group notifications, media messages, and stop words. It also handles the extraction and cleaning of URLs and emojis from the messages. The data is then aggregated to derive meaningful insights, such as activity timelines and the most common words and emojis.
+Features
+User Stats: Displays the number of messages, words, media messages, and links shared by the selected user.
+Most Active Users: Identifies and displays the most active users along with their message percentages.
+Word Cloud: Generates a word cloud visualizing the most frequent words used, excluding stop words and emojis.
+Emoji Analysis: Displays the most commonly used emojis by the user or the entire group.
+Activity Timeline: Provides a timeline of user activity on a daily and monthly basis.
+Weekly Activity Map: Shows a heatmap of activity across different days of the week.
+Monthly Activity Map: Displays a heatmap of activity across different months.
+Installation
+To run this project, you need to have Python installed along with the required dependencies. Follow the steps below:
 
-#Visualization:
-Using Matplotlib, Seaborn, and WordCloud, the project generates visualizations like bar charts, heatmaps, and word clouds. These visualizations are interactive and presented through a web application built using Streamlit.
+Clone the repository:
+git clone https://github.com/your-username/user-activity-analysis.git
+cd user-activity-analysis
 
-#Libraries and Tools Used:
-Pandas: Data manipulation and analysis
-PyExpat: Parsing XML-based chat exports
-URLExtract: Extracting URLs from messages
-WordCloud: Generating word clouds
-Seaborn & Matplotlib: Data visualization
-Streamlit: Web app framework for displaying results interactively
-Emoji: Emoji detection in text
-How to Run:
-Clone the repository.
-Install required libraries:
+Install the necessary dependencies:
 pip install -r requirements.txt
-Run the Streamlit app:
+
+Download or upload your messaging data (in txt format) to the project directory.
+
+Run the app:
 streamlit run app.py
-This project provides a comprehensive analysis of WhatsApp chat data and is useful for anyone interested in tracking their messaging behavior or analyzing group chat dynamics.
+
+Dependencies
+pandas
+seaborn
+wordcloud
+urlextract
+emoji
+matplotlib
+streamlit
+
+Usage
+Upload your messaging data in txt format.
+Select the user whose activity you want to analyze or choose "overall" for group-wide insights.
+Explore the visualizations and insights, including user activity statistics, word clouds, emoji usage, and activity heatmaps.
+
+Example Output
+Activity Heatmap: Visualizes activity levels throughout the week or month.
+Word Cloud: Displays the most used words by a selected user or group.
+Emoji Analysis: Highlights the most frequently used emojis.
