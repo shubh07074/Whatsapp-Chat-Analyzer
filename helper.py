@@ -25,49 +25,34 @@ def most_busy_users(df):
     return user_counts, percentage_df
 
 def create_wordcloud(selected_user, df):
-    # Filter messages by the selected user (if any)
     if selected_user != 'All':
         temp = df[df['user'] == selected_user]
     else:
         temp = df
 
-    # Remove empty or NaN messages
+    # Ensure there's no empty or NaN message
     temp = temp[temp['message'].notna() & (temp['message'] != '')]
 
-    # Tokenize and clean the messages
     all_messages = temp['message'].str.cat(sep=" ").lower()
 
-    # If all messages are empty or invalid, return an error message
     if not all_messages.strip():
         print("No valid messages to process.")
         return None
 
-    words = re.findall(r'\w+', all_messages)  # Extract words from the text
+    words = re.findall(r'\w+', all_messages)  # Extract words
 
     # Calculate word frequencies
     word_freq = Counter(words)
 
-    # If no words are found, print a message and return
     if not word_freq:
         print("No valid words to create word cloud.")
         return None
 
-    # Initialize WordCloud object with a valid font path (None for default font)
     wc = WordCloud(width=800, height=800, max_words=100, background_color='white')
-
-    # Generate the word cloud from the word frequencies
     df_wc = wc.generate_from_frequencies(word_freq)
 
-    # Convert the word cloud to an image
-    wc_image = df_wc.to_image()
-
-    # Display the word cloud using matplotlib
-    plt.figure(figsize=(8, 8), facecolor=None)
-    plt.imshow(wc_image, interpolation='bilinear')
-    plt.axis("off")
-    plt.show()
-
     return df_wc
+    
 def most_common_words(selected_user, df):
     stop_words_path = os.path.join(os.getcwd(), 'stop_words.txt')
     try:
