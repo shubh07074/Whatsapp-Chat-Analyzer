@@ -58,9 +58,12 @@ def create_wordcloud(selected_user, df):
     # Generate the word cloud from the word frequencies
     df_wc = wc.generate_from_frequencies(word_freq)
 
+    # Convert the word cloud to an image
+    wc_image = df_wc.to_image()
+
     # Display the word cloud using matplotlib
     plt.figure(figsize=(8, 8), facecolor=None)
-    plt.imshow(df_wc, interpolation='bilinear')
+    plt.imshow(wc_image, interpolation='bilinear')
     plt.axis("off")
     plt.show()
 
