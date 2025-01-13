@@ -13,10 +13,6 @@ Monthly Activity Map: Displays a heatmap of activity across different months.
 Installation
 To run this project, you need to have Python installed along with the required dependencies. Follow the steps below:
 
-Clone the repository:
-git clone https://github.com/your-username/user-activity-analysis.git
-cd user-activity-analysis
-
 Install the necessary dependencies:
 pip install -r requirements.txt
 
