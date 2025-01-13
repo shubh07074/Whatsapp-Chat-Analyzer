@@ -25,25 +25,34 @@ def most_busy_users(df):
     return user_counts, percentage_df
 
 def create_wordcloud(selected_user, df):
-    stop_words_path = os.path.join(os.getcwd(), 'stop_words.txt')
-    try:
-        with open(stop_words_path, 'r', encoding='utf-8') as f:
-            stop_words = f.read().splitlines()
-    except FileNotFoundError:
-        stop_words = []  # Use an empty list or default stop words if file not found
+    # Filter messages by the selected user (if any)
+    if selected_user != 'All':
+        temp = df[df['user'] == selected_user]
+    else:
+        temp = df
 
-    if selected_user != "overall":
-        df = df[df["user"] == selected_user]
+    # Remove empty or NaN messages
+    temp = temp[temp['message'].notna() & (temp['message'] != '')]
 
-    temp = df[df['user'] != 'group_notification']
-    temp = temp[temp['message'] != "Media Message"]
+    # Tokenize and clean the messages
+    all_messages = temp['message'].str.cat(sep=" ").lower()
+    words = re.findall(r'\w+', all_messages)  # Extract words from the text
 
-    def remove_stop_words_and_emojis(message):
-        return " ".join(word for word in message.lower().split() if word not in stop_words and not re.search(r'[^\w\s,]', word))
+    # Calculate word frequencies
+    word_freq = Counter(words)
 
-    temp['message'] = temp['message'].apply(remove_stop_words_and_emojis)
-    wc = WordCloud(width=500, height=500, min_font_size=10, background_color="#d3d3d3")
-    df_wc = wc.generate(temp['message'].str.cat(sep=" "))
+    # Initialize WordCloud object with a valid font path (None for default font)
+    wc = WordCloud(width=800, height=800, max_words=100, background_color='white')
+
+    # Generate the word cloud from the word frequencies
+    df_wc = wc.generate_from_frequencies(word_freq)
+
+    # Display the word cloud using matplotlib
+    plt.figure(figsize=(8, 8), facecolor=None)
+    plt.imshow(df_wc, interpolation='bilinear')
+    plt.axis("off")
+    plt.show()
+
     return df_wc
 
 def most_common_words(selected_user, df):
