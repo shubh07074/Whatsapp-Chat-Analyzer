@@ -124,9 +124,15 @@ if uploaded_file is not None:
 
             # WordCloud
             df_wc = helper.create_wordcloud(selected_user, df)
-            fig, ax = plt.subplots()
-            ax.imshow(df_wc)
-            st.pyplot(fig)
+            if df_wc:
+                # Convert WordCloud object to an image
+                wc_image = df_wc.to_image()
+
+                # Plot the WordCloud image
+                fig, ax = plt.subplots(figsize=(8, 8))
+                ax.imshow(wc_image, interpolation='bilinear')
+                ax.axis("off")  # Hide the axes for a cleaner display
+                st.pyplot(fig)
 
             # Most Common Words
             most_common_df = helper.most_common_words(selected_user, df)
