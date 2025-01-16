@@ -2,6 +2,7 @@ import pandas as pd
 from urlextract import URLExtract
 from wordcloud import WordCloud
 from collections import Counter
+from PIL import Image, ImageDraw, ImageFont
 import emoji
 import os
 import re
@@ -40,8 +41,17 @@ def create_wordcloud(selected_user, df):
     # Create a WordCloud object
     wc = WordCloud(width=800, height=800, max_words=100, background_color='white')
 
-    # Generate the word cloud from frequencies
-    df_wc = wc.generate_from_frequencies(word_freq)
+    # Check for a proper font to handle emojis and special characters
+    try:
+        df_wc = wc.generate_from_frequencies(word_freq)
+    except AttributeError as e:
+        if 'textsize' in str(e):
+            # Handle the 'textsize' issue using a fallback approach
+            def patched_textsize(self, text, font=None, *args, **kwargs):
+                return ImageDraw.ImageDraw.textbbox(self, (0, 0), text, font=font)[2:]
+
+            ImageDraw.ImageDraw.textsize = patched_textsize
+            df_wc = wc.generate_from_frequencies(word_freq)
 
     return df_wc
     
