@@ -6,4 +6,6 @@ urlextract==1.6.0
 wordcloud==1.8.1
 emoji==1.6.3
 numpy<2
-pillow
+Pillow>=9.3.0
+wordcloud>=1.8.2.2
+
