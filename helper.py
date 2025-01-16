@@ -25,30 +25,22 @@ def most_busy_users(df):
     return user_counts, percentage_df
 
 def create_wordcloud(selected_user, df):
-    if selected_user != 'All':
-        temp = df[df['user'] == selected_user]
-    else:
-        temp = df
+    # Filter data for the selected user
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
 
-    # Ensure there's no empty or NaN message
-    temp = temp[temp['message'].notna() & (temp['message'] != '')]
-
-    all_messages = temp['message'].str.cat(sep=" ").lower()
-
-    if not all_messages.strip():
+    # Check if there's any data to process
+    if df.empty:
         print("No valid messages to process.")
         return None
 
-    words = re.findall(r'\w+', all_messages)  # Extract words
+    # Generate word frequencies from the message data
+    word_freq = df['message'].value_counts().to_dict()
 
-    # Calculate word frequencies
-    word_freq = Counter(words)
-
-    if not word_freq:
-        print("No valid words to create word cloud.")
-        return None
-
+    # Create a WordCloud object
     wc = WordCloud(width=800, height=800, max_words=100, background_color='white')
+
+    # Generate the word cloud from frequencies
     df_wc = wc.generate_from_frequencies(word_freq)
 
     return df_wc
